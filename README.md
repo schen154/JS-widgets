@@ -1,1 +1,2 @@
 # JS-widgets
+Javascript widgets.
