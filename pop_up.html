@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+        <title>Selection Pop-up</title>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--jsTree-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+        <!--bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+        <!--Mouseover-->
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="mouseover_popup.js" language="JavaScript" type="text/javascript"></script>
+        <!--Chosen-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+        <!--main CSS-->
+        <link rel="stylesheet" type="text/css"  href="popup.css">
+</head>
+
+<body>
+    <div class="container rectangle-18" id="outermost">
+        <div class="select-a-plot-to-vie" id="title">Select a Plot to View</div>
+  
+        <select class="chosen" data-placeholder="Browse by">
+            <option value="FT">Browse Feature</option>
+            <option value="MD">Browse Metadata</option>
+            <option value="SS">Browse Silhouette Score</option>
+            <option value="TN">Browse Thumbnails</option>
+        </select>
+        
+        
+        <div class="row select_title">
+            <div class="col-md-6">SELECT DATA BY:</div>
+            <div class="col-md-6">SELECT A PLOT</div>
+            <div class="verticalLine"></div>
+        </div>
+        
+        <div class="row tree_panels">
+            <!--left panel, tree-->
+            <div class="col-md-6 scrollable-menu">
+                
+                <div id="single_select" class="tree_select"></div>
+
+            </div>
+            
+            <!--right panel, mouseover-->
+            <div class="col-md-6 ">
+                
+                <!--mouseover-->
+                <div style="display: none; position:absolute; z-index:10; width: 15; height: 15" id="preview_div"></div>
+                
+                <!--accordion-->
+                <div class="scrollable-menu" id="right_scroll">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="acc_toggle">Local Linear Structure</a>
+                            </div>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <!--plots-->
+                                <div id="Feat_plots" class="tree_select"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="acc_toggle">Global Non-linear Structure</a>
+                            </div>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <!--plots-->
+                                <div id="Meta_plots" class="tree_select"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="acc_toggle">Silhouette Score</a>
+                            </div>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <!--plots-->
+                                    <div id="Sil_plots" class="tree_select"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+                <div id="plot_frame">
+                    <button type="button" id="get_plot">GET PLOT</button>
+                </div>
+                
+            </div>
+        </div>
+    
+    </div>
+
+</body>
+
+
+
+
+
+<script type='text/javascript'>
+    $(".chosen").chosen({
+        disable_search_threshold: 10,
+        width: "43%"
+    })
+    
+    $('#accordion .panel-collapse').collapse({   //only allows one accordion panel to be open
+        parent: '#accordion',
+        toggle: false 
+    })
+    
+    //right side node structure
+    var right_side = [
+    {
+    'id':'Cluster #1',
+    'text': 'Cluster #1',
+    'children': [
+        {
+        'id':'Map 1',
+        'text': 'Map 1',
+        'li_attr': {//for mouseover
+        "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+        "onmouseout": "hidetrail()"
+        }
+        },
+        {
+        'id':'Map 2',
+        'text': 'Map 2',
+        'li_attr': {
+        "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+        "onmouseout": "hidetrail()"
+        }
+        }
+        ]
+    },
+
+    {
+    'id':'Cluster #2',
+    'text': 'Cluster #2',
+    'children': [
+        {
+        'id':'Map 2.1',
+        'text': 'Map 2.1',
+        'li_attr': {//for mouseover
+        "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+        "onmouseout": "hidetrail()"
+        }
+        },
+        {
+        'id':'Map 2.2',
+        'text': 'Map 2.2',
+        'li_attr': {
+        "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+        "onmouseout": "hidetrail()"
+        }
+        }
+    ]
+    }
+    ]
+    
+    //search function for selected node
+    function getObjects(obj, key, val) {
+        var objects = [];
+        for (var i in obj) {
+            if (!obj.hasOwnProperty(i)) continue;
+            if (typeof obj[i] == 'object') {
+                objects = objects.concat(getObjects(obj[i], key, val));
+            } else if (i == key && obj[key] == val) {
+                objects.push(obj);
+            }
+        }
+        //console.log(obj);
+        return objects;
+    }
+    
+    jQuery(function() {
+        $('#single_select').jstree({
+            "core":{
+                "data":[
+                {
+                    'id': 'Feature',
+                    'text': 'Feature',
+                    'children': [
+                         {
+                         'id': 'A feature',
+                         'text': 'A feature',
+                         }
+                    ],
+                },
+                {
+                    'id': 'Metadata',
+                    'text': 'Metadata',
+                    'children': [
+                         {
+                         'id': 'A metadata',
+                         'text': 'A metadata',
+                         }
+                    ],
+                },
+                        
+                {
+                    'id': 'Clustering',
+                    'text': 'Clustering',
+                    'children': [
+                    {
+                    'id': 'COSINE Subspace',
+                    'text': 'COSINE Subspace',
+                    'children': [
+                    {
+                    'id': 'K-means 5',
+                    'text': 'K-means 5',
+
+                    },
+                    {
+                    'id': 'K-means 10',
+                    'text': 'K-means 10',
+                    'children': [
+                    {
+                    'id': 'Cluster #1',
+                    'text': 'Cluster #1',
+                    },
+                    {
+                    'id': 'Cluster #2',
+                    'text': 'Cluster #2',
+                    }
+                    ]
+                    }
+                    ]
+                    },
+                    ]
+                },
+                ],
+                "themes": {"icons": false},
+                
+            },
+            "search": {"show_only_matches" : true},
+            "plugins": ["wholerow",  "search",  "state"],
+            "multiple": false,
+        });
+    
+        var node_sel = null;
+        var node_display = null;
+        var catetory = null;
+        var tree_display = null;
+        $('#single_select').on('select_node.jstree', function (e, data){//disable parent node select
+            if (data.node.children.length > 0){
+                catetory = data.node.id;
+                if(catetory=='Feature')
+                {
+                    $('#collapse1').collapse('show');
+                    tree_display = '#Feat_plots';
+                }
+                else if(catetory=='Metadata')
+                {
+                    $('#collapse2').collapse('show');
+                    tree_display = '#Meta_plots';
+                }
+                else if(catetory=='Clustering')
+                {
+                    $('#collapse3').collapse('show');
+                    tree_display = '#Sil_plots';
+                }
+                console.log(tree_display);
+                $('#single_select').jstree(true).deselect_node(data.node);
+                $('#single_select').jstree(true).toggle_node(data.node);
+            }else{
+                node_sel = data.node.id;
+                console.log('node_sel = ' + node_sel);
+                node_display = getObjects(right_side, 'id', node_sel)[0].children;
+                console.log(node_display);
+                               
+                $(tree_display).jstree(true).settings.core.data = node_display;
+                $(tree_display).jstree(true).refresh();
+            }
+                        
+        });
+        
+        
+        
+        $('#Sil_plots').jstree({
+            "core":{
+                "data": node_display,
+                "themes" : {"icons" : false},
+            },
+            "search" : {"show_only_matches" : true},
+            "plugins" : ["wholerow",  "search",  "state"],
+            "multiple" : false,
+        });
+           
+        $('#Meta_plots').jstree({
+            "core":{
+            "data": node_display,
+            "themes" : {"icons" : false},
+            },
+            "search" : {"show_only_matches" : true},
+            "plugins" : ["wholerow",  "search",  "state"],
+            "multiple" : false,
+        });
+
+        $('#Feat_plots').jstree({
+            "core":{
+            "data": node_display,
+            "themes" : {"icons" : false},
+            },
+            "search" : {"show_only_matches" : true},
+            "plugins" : ["wholerow",  "search",  "state"],
+            "multiple" : false,
+        });
+           
+           
+           
+        
+        //only one parent node(feature/meta/cluster) could be open at a time
+        $("#single_select").bind("open_node.jstree", function (event, data){
+            var obj =  data.instance.get_node(data.node, true);
+            if(obj) {
+            obj.siblings(".jstree-open").each(function () { data.instance.close_node(this, 0); });
+            }
+        });
+    
+    });
+    
+
+
+
+
+    
+</script>
+</html>
+
+
+<!--
+ 
+ 
+ $('#Sil_plots').on('select_node.jstree', function (e, data){//disable parent node select
+ if (data.node.children.length > 0){
+ $('#Sil_plots').jstree(true).deselect_node(data.node);
+ $('#Sil_plots').jstree(true).toggle_node(data.node);
+ }
+ }); -->

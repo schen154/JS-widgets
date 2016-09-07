@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+        <title>Local Settings</title>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--jsTree-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+        <!--bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+        <!--Mouseover-->
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="mouseover_popup.js" language="JavaScript" type="text/javascript"></script>
+        <!--Chosen-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+        <!--main CSS-->
+        <link rel="stylesheet" type="text/css"  href="loc_set.css">
+</head>
+
+<body>
+    <div class="container rectangle-141" id="outermost">
+        
+        <p id="title">Local Plot Settings</p>
+        <p id="subtitle">Plot Title</p>
+        <hr>
+        <p id="color_by" class="options">COLOR BY</p>
+        <select class="chosen" data-placeholder="Color By">
+            <option value="FT">Feature</option>
+            <option value="MD">Metadata</option>
+            <option value="SS">Silhouette Score</option>
+        </select>
+        <!--tree?-->
+        <div id="color_select"></div>
+      
+        <p class="options">LLSR</p>
+        <select class="chosen" data-placeholder="Select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        
+        <hr class="dotted">
+        
+        <p class="options">HIGHLIGHT BY</p>
+        <select class="chosen" data-placeholder="Select">
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+        </select>
+        
+        <hr class="dotted">
+
+        <p id="show" class="options">HIGHLIGHT BY</p>
+        <div class="checkbox">
+            <label><input type="checkbox" value="">Hexbin</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" value="">Boundary Shading</label>
+        </div>
+
+        <hr id="lower_hr">
+
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">
+                <button class="btn btn-secondary btn-sm" type="submit">Clear Settings</button>
+            </div>
+            <div class="col-xs-6 col-sm-2"></div>
+            
+            <div class="col-xs-6 col-sm-3">
+                <button class="btn btn-secondary btn-sm">Cancel</button>
+            </div>
+            
+            <div class="col-xs-6 col-sm-3">
+                <button class="btn btn-secondary btn-sm" type="submit">Save</button>
+            </div>
+            
+        </div>
+
+    </div>
+
+</body>
+<script type='text/javascript'>
+    $(".chosen").chosen({
+       disable_search_threshold: 10,
+       width: "90%"
+    });
+    
+</script>
+</html>

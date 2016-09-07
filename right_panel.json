@@ -1,0 +1,49 @@
+
+//right side node structure
+[
+    {
+        'id':'Cluster #1',
+        'text': 'Cluster #1',
+        'children': [
+            {
+                'id':'Map 1',
+                'text': 'Map 1',
+                'li_attr': {//for mouseover
+                     "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                     "onmouseout": "hidetrail()"
+                }
+            },
+            {
+                'id':'Map 2',
+                'text': 'Map 2',
+                'li_attr': {
+                    "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+                    "onmouseout": "hidetrail()"
+                }
+            }
+        ]
+    },
+ 
+    {
+        'id':'Cluster #2',
+        'text': 'Cluster #2',
+        'children': [
+              {
+                  'id':'Map 2.1',
+                  'text': 'Map 2.1',
+                  'li_attr': {//for mouseover
+                      "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                      "onmouseout": "hidetrail()"
+                  }
+              },
+              {
+                  'id':'Map 2.2',
+                  'text': 'Map 2.2',
+                  'li_attr': {
+                      "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+                      "onmouseout": "hidetrail()"
+                   }
+              }
+        ]
+    }
+]

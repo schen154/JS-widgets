@@ -1,0 +1,81 @@
+.rectangle-18 {
+    width: 437px;
+    height: 468px;
+    border: solid 2px #c7c7c7;
+}
+
+div.select-a-plot-to-vie {
+    text-align: center;
+    width: 437px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 2;
+    color: #4a4a4a;
+}
+.verticalLine {
+    border-left: solid 2px #d8d8d8;
+    height:388px;
+    margin:-10px 0px 0px 213px;
+}
+
+.select_title{
+    margin:10px 0px 0px -17px;
+    padding: 8px 0px 0px 0px;
+    height: 35px;
+    width: 437.9px;
+    font-size: 12px;
+    color: #4f6579;
+    border: solid 2px #d8d8d8;
+}
+
+.tree_panels{
+    height: 361px;
+    width: 437.9px;
+    margin:-2px 0px 0px -17px;
+    padding: 8px 0px 0px 0px;
+    font-size: 12px;
+    color: #4f6579;
+    
+}
+
+.tree_select{
+    margin:0px 0px 0px -9px;
+}
+#preview_div{
+    margin:0px 0px 9px 700px;
+}
+
+#plot_frame{
+    height: 53px;
+    width: 218px;
+    margin: 0px 0px 0px -16px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#get_plot{
+    width: 127px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #e5f0f2;
+    background-color: var(--pale-grey);
+    box-shadow: inset 0 -1px 0 1px rgba(0, 0, 0, 0.5);
+    border: solid 1px #b7bbc0;
+    border: solid 1px var(--cool-grey);
+    margin-top: 7px;
+}
+
+.scrollable-menu {
+    height: 360px;
+    max-height: 360px;
+    overflow-x: hidden;
+    
+}
+
+#right_scroll{
+   height: 294px;
+   max-height: 294px;
+}
+.active {
+    background-color: Blue;
+}

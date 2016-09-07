@@ -1,0 +1,48 @@
+[
+                {
+                    'id': 'Feature',
+                    'text': 'Feature',
+                    'state': {
+                        'disabled': true  // is the node disabled
+                    },
+                },
+                {
+                    'id': 'Metadata',
+                    'text': 'Metadata',
+                    'state': {
+                        'disabled': true  // is the node disabled
+                    },
+                },
+                        
+                {
+                    'id': 'Clustering',
+                    'text': 'Clustering',
+                    'children': [
+                    {
+                    'id': 'COSINE Subspace',
+                    'text': 'COSINE Subspace',
+                    'children': [
+                    {
+                    'id': 'K-means 5',
+                    'text': 'K-means 5',
+
+                    },
+                    {
+                    'id': 'K-means 10',
+                    'text': 'K-means 10',
+                    'children': [
+                    {
+                    'id': 'Cluster #1',
+                    'text': 'Cluster #1',
+                    },
+                    {
+                    'id': 'Cluster #2',
+                    'text': 'Cluster #2',
+                    }
+                    ]
+                    }
+                    ]
+                    },
+                    ]
+                },
+                ]

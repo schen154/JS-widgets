@@ -1,0 +1,23 @@
+[
+    {//first node(with children)
+        'text': 'Root node 1',
+        'children': [
+            {//1st child
+                'text': 'Child 1',
+                'li_attr': {
+                    "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+                    "onmouseout": "hidetrail()"
+                }
+            },
+            {//2nd child
+                'text': 'Child 2',
+                'li_attr': {
+                    "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                    "onmouseout": "hidetrail()"
+                }
+            }
+        ]
+    },
+    //second node(no children)
+    'Simple root node'
+]

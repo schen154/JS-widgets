@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Clustering Graphic</title>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+        <!--bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+        
+        
+        <!--jsTree-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+        
+        <!--Mouseover-->
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="mouseover_popup.js" language="JavaScript" type="text/javascript"></script>
+            
+
+ 
+        <!------------CSS----------------CSS----------------CSS--------------CSS--------------->
+        <style>
+            .btn
+            {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .dropdown-menu, .btn
+            {
+                width: 40%;
+            }
+
+            .search{
+                width: 100%;
+            }
+
+            .dropdown{
+                margin-top: 50px;
+            }
+
+            .scrollable-menu {
+                position: absolute;
+                z-index: 5;
+                height: auto;
+                max-height: 250px;
+                overflow-x: hidden;
+                
+            }
+        </style>
+
+    </head>
+
+
+    <body>
+        
+        
+        
+        <!--------------Color by-------------->
+        
+        <!--mouseover-->
+        <div style="display: none; position:absolute; z-index:10; width: 15; height: 15" id="preview_div"></div>
+        
+        <div class="dropdown">
+            
+            <button class="btn btn-default dropdown-toggle" type="button" id="color_dd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Please selecet a color
+                <span class="caret"></span>
+            </button>
+            
+            
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu1">
+                <li>
+                    <div>
+                        <input class="search" type="text" value="" id="search_color" placeholder="Find a Color">
+                    </div>
+                    <div id="color_tree" class="tree_select"></div>
+                </li>
+            </ul>
+        </div>
+        
+    
+        <!--------------tooltip by-------------->
+        
+        <!--mouseover-->
+        <div style="display: none; position:absolute; z-index:10; width: 15; height: 15" id="preview_div"></div>
+        
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="tooltip_dd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Please select tooltips
+                <span class="caret"></span>
+            </button>
+            
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu1">
+                <li>
+                    <div>
+                        <input class="search" type="text" value="" id="search_tooltip" placeholder="Find a Tooltip Content">
+                    </div>
+                    <div id="tooltip_tree" class="tree_select"></div>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+
+
+        <!-----------javascript-------------javascript--------------javascript------------>
+        <script type='text/javascript'>
+            
+            
+            
+            
+            
+            //To disable auto-collapse for dropdown
+            $('.dropdown-menu').click(function(e) {
+                                     e.stopPropagation();
+                                     });
+                                     
+            //clear search results for each toggle
+            $('.dropdown-toggle').click(function(e) {
+                                    $('#search_tooltip').val("");
+                                    $('#tooltip_tree').jstree(true).clear_search();
+                                        
+                                    $('#search_color').val("");
+                                    $('#color_tree').jstree(true).clear_search();
+                                });
+           
+            //main functions_jstree
+            $(document).ready(
+                              
+                jQuery(function() {
+                    $('#color_tree').jstree({
+                        "core" : {
+                            "multiple" : false,
+
+                            "data" :[
+                                {
+                                    'text': 'Root node 1',
+                                    'children': [
+                                        {
+                                            'text': 'Child 1',
+                                            'li_attr': {
+                                                 "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                                                 "onmouseout": "hidetrail()"
+                                            }
+                                        },
+                                        {
+                                            'text': 'Child 1',
+                                            'li_attr': {
+                                                "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+                                                "onmouseout": "hidetrail()"
+                                            }
+                                        }
+                                    ]
+                                },
+                                     
+                                {
+                                    'text': 'Root node 2',
+                                    'children': [
+                                        {
+                                            'text': 'Child 11',
+                                            'li_attr': {
+                                                 "onmouseover": "showtrail('RBF-KPCA-30_COS-KPCA.jpg','RBF-KPCA-30 ISO',120,120)",
+                                                 "onmouseout": "hidetrail()"
+                                            }
+                                        }
+                                    ]
+                                },
+                                 {
+                                     'text': 'Simple root node',
+                                     'li_attr': {
+                                         "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                                         "onmouseout": "hidetrail()"
+                                     }
+                                 }
+                            ],
+
+                            "themes" : {"icons" : false},
+
+                        },
+                        "search" : {"show_only_matches" : true},
+                        "plugins" : [ "wholerow", "search"]
+                    });
+                       
+                       
+                       //disable parent node__when clicked, toggle instead of select
+                       $('#color_tree').on('select_node.jstree', function (e, data) {
+                                        if (data.node.children.length > 0) {
+                                            $('#color_tree').jstree(true).deselect_node(data.node);
+                                            $('#color_tree').jstree(true).toggle_node(data.node);
+                                        }
+                        })
+                       
+                       //search function
+                       var to = false;
+                       $('#search_color').keyup(function () {
+                                          if(to) { clearTimeout(to); }
+                                          to = setTimeout(function () {
+                                                          var v = $('#search_color').val();
+                                                          $('#color_tree').jstree(true).search(v);
+                                                          }, 250);
+                                          
+                                          });
+                       
+                       
+                       $('#color_tree').on("changed.jstree", function (e, data) {
+                            var ref = $('#color_tree').jstree(true),
+                            sel = ref.get_selected(true),
+                            text = ref.get_text(sel[0]);
+                            
+                            //parent node clicked
+                            if(sel=="")text = "Please selecet a color";
+                            console.log(text);
+                            $("#color_dd:first-child").text(text);
+                                           
+                            //toggle after selecting an item(for single select)
+                            $(this).closest('.dropdown-menu').prev().dropdown('toggle');
+                                          
+                       });
+                       
+                       $('#tooltip_tree').jstree({
+                           "core" : {
+                               "data":[
+                                    {
+                                        'text': 'Root node 1',
+                                        'children': [
+                                              {
+                                                  'text': 'Child 1',
+                                                  'li_attr': {
+                                                      "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                                                      "onmouseout": "hidetrail()"
+                                                  }
+                                              },
+                                              {
+                                                  'text': 'Child 1',
+                                                  'li_attr': {
+                                                     "onmouseover": "showtrail('RBF-KPCA-30_SPE.jpg','RBF-KPCA-30 SPE',120,120)",
+                                                     "onmouseout": "hidetrail()"
+                                                  }
+                                              }
+                                        ]
+                                    },
+
+                                    {
+                                        'text': 'Root node 2',
+                                        'children': [
+                                              {
+                                                  'text': 'Child 11',
+                                                  'li_attr': {
+                                                     "onmouseover": "showtrail('RBF-KPCA-30_COS-KPCA.jpg','RBF-KPCA-30 ISO',120,120)",
+                                                     "onmouseout": "hidetrail()"
+                                                  }
+                                              }
+                                        ]
+                                    },
+                                    {
+                                       'text': 'Simple root node',
+                                       'li_attr': {
+                                           "onmouseover": "showtrail('RBF-KPCA-30_ISO.jpg','RBF-KPCA-30 ISO',120,120)",
+                                           "onmouseout": "hidetrail()"
+                                       }
+                                    }
+                                    
+                               ],
+                               
+                               "themes" : {"icons" : false},
+                           
+                           },
+                           "search" : {"show_only_matches" : true},
+                           "plugins" : ["wholerow", "checkbox", "search"]
+                           });
+                       
+                       
+                       //search function
+                        var to = false;
+                        $('#search_tooltip').keyup(function () {
+                            if(to){clearTimeout(to); }
+                            to = setTimeout(function () {
+                                var v = $('#search_tooltip').val();
+                                $('#tooltip_tree').jstree(true).search(v);
+                            }, 250);
+                          
+                        });
+                       
+                       
+                        $('#tooltip_tree').on("changed.jstree", function (e, data) {
+                      
+                            var tooltip_selected = data.selected;
+                            console.log(tooltip_selected);
+                            $("#tooltip_dd:first-child").text(tooltip_selected);
+                            $("#tooltip_dd:first-child").val(tooltip_selected);
+
+                            var ref = $('#tooltip_tree').jstree(true),
+                            sel = ref.get_selected(true),
+                            text = "";
+                             
+                            for (i = 0; i < sel.length; i++) {
+                                text = text+ref.get_text(sel[i]) + ", ";
+                            }
+                            if(i==0) text = "Select tooltips";
+
+                            console.log(text);
+                            $("#tooltip_dd:first-child").text(text);
+                        });
+                    })
+        )
+        </script>
+    </body>
+</html>
